@@ -1,0 +1,13 @@
+.paginationBox{
+    @apply
+    w-4/5
+    flex
+    flex-col
+    items-center
+    my-5
+}
+.pagesNumbers{
+    @apply
+    flex
+    gap-2
+}

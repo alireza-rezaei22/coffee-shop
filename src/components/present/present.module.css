@@ -1,0 +1,85 @@
+.presentBackground{
+    @apply
+    bg-[url(/src/assets/images/coffee-tea-drink-background.png)]
+    bg-cover
+    bg-opacity-0
+    py-10
+}
+.presentBox{
+    @apply
+    w-fit
+    max-w-xl
+    mx-auto
+    flex
+    flex-col
+    justify-center
+    items-center
+    gap-8
+    text-sm
+    p-3
+}
+.presentRow{
+    @apply
+    w-full
+    text-xs
+    self-start
+    mx-auto
+    flex
+    flex-row
+}
+.rowImgBox{
+    @apply
+    relative
+    w-1/4
+}
+.rowImg{
+    @apply
+    absolute
+    size-full
+    p-2
+    z-10
+}
+.rowImgShape{
+    @apply
+    absolute
+    size-full
+    border-2
+    border-zinc-300
+    rounded-full
+}
+.rowTextBox{
+    @apply
+    w-3/4
+    border-zinc-400
+    border-r-2
+    mx-2 
+    px-2
+}
+.title{
+    @apply
+    text-zinc-600
+    text-xl
+    font-bold
+}
+.text{
+    @apply
+    text-zinc-500
+}
+.presentReverse{
+    @apply
+    flex-row-reverse
+    self-end
+}
+.presentReverse .rowTextBox{
+    @apply
+    border-l-2
+    border-r-0
+    text-left
+}
+@media screen and (min-width:768px) {
+    .presentRow{
+        @apply
+        my-5 
+        text-lg
+    }
+}

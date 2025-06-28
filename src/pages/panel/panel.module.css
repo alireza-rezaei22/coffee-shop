@@ -1,0 +1,39 @@
+.panelBox{
+    @apply
+    flex-1
+    m-2
+}
+.staticSec{
+    @apply
+    flex
+    flex-col
+    items-center
+    p-5
+    /* bg-red-50 */
+}
+.info{
+    @apply
+    flex
+    flex-col
+    items-center
+    gap-2
+}
+.avatar{
+    @apply
+    bg-gray-300
+    p-4
+    w-fit
+    rounded-full
+}
+.pages{
+    @apply
+    mt-3
+    flex
+    gap-3
+}
+.content{
+    @apply
+    flex
+    justify-center
+    /* bg-green-50 */
+}

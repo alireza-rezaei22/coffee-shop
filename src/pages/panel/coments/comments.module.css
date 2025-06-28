@@ -1,0 +1,105 @@
+.basketBox{
+    @apply
+    w-full
+    max-w-[900px]
+    h-full
+    p-2
+    !mx-3
+    flex
+    flex-col
+    justify-between
+}
+.basketList{
+    @apply
+    flex
+    flex-col
+    gap-2
+}
+.basketItem{
+    @apply
+    p-5
+    bg-gray-50
+    flex
+    justify-between
+    gap-5
+    hover:bg-gray-100
+}
+.rightSec{
+    @apply
+    flex
+    gap-5
+}
+.rightSec img{
+    @apply
+    rounded-md
+    w-20
+    border
+    border-gray-200
+}
+.itemInfo{
+    @apply
+    flex
+    flex-col
+    justify-between
+}
+.coment{
+    @apply
+    text-gray-600
+}
+.actions{
+    @apply
+    self-end
+    space-y-2
+    text-white
+    text-sm
+    flex
+    flex-col
+}
+.showItemBtn{
+    @apply
+    bg-blue-500
+    rounded-md
+    px-2
+    py-1
+    text-white
+    hover:bg-blue-600
+}
+.deleteItemBtn{
+    @apply
+    bg-red-500
+    rounded-md
+    px-2
+    py-1
+
+    hover:bg-red-600
+}
+.totalPrice{
+    @apply
+    bg-gray-200
+    mb-3
+    p-3
+    rounded-md
+}
+.payment{
+    @apply
+    text-white
+    bg-indigo-600
+    rounded-md
+    w-full
+    p-3
+    hover:bg-indigo-700
+}
+@media screen and (min-width:768px) {
+    .actions{
+        @apply
+        justify-center
+        items-center
+        flex-row
+        space-x-2
+        space-x-reverse
+    }
+    .deleteItemBtn{
+        @apply
+        !my-0
+    }
+}

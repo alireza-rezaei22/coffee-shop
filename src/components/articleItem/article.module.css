@@ -1,0 +1,30 @@
+.articleBox{
+    @apply
+    bg-zinc-300
+    mx-5
+    rounded-3xl
+    overflow-hidden
+}
+.articleImg{
+    @apply
+    size-full
+}
+.articleInfo{
+    @apply
+    p-5
+}
+.title{
+    @apply
+    text-2xl
+    font-bold
+    text-white
+}
+.description{
+    @apply
+    text-base
+    text-zinc-500
+    p-4
+    text-lg
+    h-32
+    overflow-hidden
+}

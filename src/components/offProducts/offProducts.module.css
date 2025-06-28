@@ -1,0 +1,50 @@
+.offProductsBox{
+    @apply
+    bg-gradient-to-bl from-indigo-600 to-indigo-900
+    relative
+    /* mt-8 */
+    /* py-4 */
+    p-4
+    flex
+    flex-col
+    gap-3
+    /* px-8 */
+    rounded-l-full
+    rounded-r-xl
+}
+.products{
+    @apply
+    !mr-0
+    w-10/12
+    text-white
+}
+.slide{
+    @apply
+    w-fit
+}
+.seeMoreBtn{
+    @apply
+    justify-end
+    w-full
+    absolute
+    -top-8
+    left-0
+    flex
+    items-center
+    text-red-600
+    space-x-2
+    space-x-reverse 
+}
+@media screen and (min-width: 768px) {
+    /* .slide{
+        @apply
+        py-8
+        px-12
+    } */
+}
+@media screen and (min-width: 1024px) {
+    .offProductsBox{
+        @apply
+        mx-20
+    }
+}

@@ -1,0 +1,10 @@
+.input{
+    @apply
+    bg-white
+    w-full
+    px-5
+    py-2
+    text-zinc-800
+    outline-none
+    rounded-full
+}

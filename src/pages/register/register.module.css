@@ -1,0 +1,78 @@
+.background{
+    @apply
+    relative
+    bg-zinc-800
+    bg-[url(/src/assets/images/header-img.png)]
+    bg-cover
+    bg-fixed
+    -top-[72px]
+    h-screen
+    py-40
+    flex
+    justify-center
+}
+.blurElem{
+    @apply
+    absolute
+    inset-0
+    w-full
+    h-full
+    backdrop-blur-md
+}
+.loginBox{
+    @apply
+    relative
+    w-[450px]
+    h-[450px]
+}
+.loginBoxBackground{
+    @apply
+    absolute
+    bg-white
+    w-full
+    h-full
+    opacity-45
+    z-10
+    rounded-3xl
+}
+.loginForm{
+    @apply
+    relative
+    text-white
+    w-full
+    h-full
+    px-12
+    py-20
+    z-20
+    flex
+    flex-col
+    justify-evenly
+    items-center
+    gap-5
+}
+.inputs{
+    @apply
+    grid
+    grid-cols-2
+    gap-2
+}
+.submitBtn{
+    @apply
+    bg-zinc-900
+    w-full
+    p-2
+    rounded-full
+    disabled:bg-zinc-600
+}
+.errorMsg{
+    @apply
+    text-red-500
+    self-start
+}
+.linkToLogin{
+    @apply
+    text-blue-600
+    text-sm
+    self-start
+    px-2
+}

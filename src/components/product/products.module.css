@@ -1,0 +1,73 @@
+.productBox{
+    @apply
+    w-32
+    h-60
+    self-end
+    space-y-2
+    inline-flex
+    flex-col
+    justify-between
+    text-sm
+    border-zinc-900
+    border-2
+    bg-gradient-to-b
+    from-zinc-500
+    to-zinc-900
+    /* bg-zinc-900 */
+    rounded-lg
+    text-white
+}
+.productBox img{
+    @apply
+    rounded-lg
+    w-full
+}
+.infoBox{
+    @apply
+    m-2
+    space-y-2
+}
+.details{
+    @apply
+    flex
+    justify-between
+    items-center
+}
+.price{
+    @apply
+    w-2/3
+    flex-1
+    bg-zinc-600
+    text-white
+    flex
+    items-center
+    justify-between
+    px-2
+    py-1
+    rounded-full
+    divide-x-2
+    divide-x-reverse
+}
+.offPriceBox{
+    @apply
+    w-[100%]
+    flex
+    flex-row
+    px-2
+    py-1
+    rounded-full
+
+}
+.offPersent{
+    @apply
+    text-red-600
+    font-bold
+    italic
+}
+@media screen and (min-width:1024px) {
+    .productBox{
+        @apply
+        w-40
+        h-72
+    }
+}

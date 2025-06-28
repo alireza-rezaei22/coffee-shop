@@ -1,0 +1,64 @@
+footer{
+    @apply container
+    flex
+    flex-col
+    items-center
+    relative
+    mt-5
+    bottom-0
+    after:absolute
+    after:w-[100%]
+    after:h-[1px]
+    after:bg-zinc-400
+    after:rotate-[0.5deg]
+    before:absolute
+    before:w-[100%] before:h-[1px]
+    before:bg-zinc-400 before:-rotate-[0.5deg]
+}
+.footerMain{
+    @apply
+    w-full
+    mt-10
+    flex
+    divide-x-2
+    divide-x-reverse
+    gap-5
+}
+.footerSec{
+    @apply
+    px-5
+}
+.footerSecTitle{
+    @apply
+    text-zinc-400
+    font-bold
+}
+.footerSecItems{
+    @apply
+    text-zinc-500
+    text-sm
+    my-8
+    space-y-2 
+}
+.contact{
+    @apply
+    top-0
+    bg-gradient-to-bl
+    /* from-zinc-700
+    to-zinc-950 */
+    from-indigo-700
+    to-indigo-950
+
+    text-white
+    w-96
+    flex justify-around
+    p-6
+    rounded-t-3xl
+}
+.contact a{
+    @apply
+    space-x-1
+    space-x-reverse
+    flex
+    items-center
+}

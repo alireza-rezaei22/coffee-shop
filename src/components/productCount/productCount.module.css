@@ -1,0 +1,37 @@
+.productCountBox{
+    @apply
+    bg-indigo-500
+    border-zinc-900
+    border-2
+    text-white
+    w-full
+    self-end
+    text-xl
+    rounded-full
+    flex
+    justify-between
+}
+.productCountBox button{
+    @apply
+    w-1/3
+}
+.productCountBox h4{
+    @apply
+    py-2
+    w-1/3
+    text-center
+    border-x-2
+    border-gray-300
+}
+@media screen and (min-width: 768px) {
+    .productCountBox{
+        @apply
+        w-2/4
+    }
+}
+@media screen and (min-width:1024px) {
+    .productCountBox{
+        @apply
+        w-1/4
+    }
+}
