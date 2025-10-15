@@ -224,15 +224,6 @@
       "off": 15,
       "count": 1,
       "id": 7
-    },
-    {
-      "userId": 3,
-      "productTitle": "coffee robosta",
-      "productId": 8,
-      "price": 20000,
-      "off": 20,
-      "count": 1,
-      "id": 8
     }
   ]
 }
