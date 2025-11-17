@@ -2,10 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { UseForm } from "../../hooks/UseForm";
 import Input from "../../components/input/input";
 import Navbar from "../../components/navbar/navbar";
-import styles from './login.module.css'
 import { useContext, useEffect, useState } from "react";
 import AlertContext from "../../Contexts/AlertContext";
-import  {AuthContext} from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 export default function Login() {
     const alertContext = useContext(AlertContext)
@@ -20,7 +19,6 @@ export default function Login() {
             value: '',
             isValid: false
         },
-        // isFormValid: false
     })
     useEffect(()=>{
         if(authContext.isLoggedIn){
@@ -34,14 +32,12 @@ export default function Login() {
             userData[i].value + '@phone.ph' : userData[i].value
     }
     const [isPassShow, setIsPassShow] = useState(false)
-    // const [userPassword, setUserPassword] = useState(null)
 
     const loginUser = () => {
         fetch('http://localhost:3000/login*', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
-                // 'Authorization': `Bearer ${authContext.token}`
             },
             body: JSON.stringify({
                 'email': pureUserData.contact,
@@ -57,10 +53,6 @@ export default function Login() {
                     return res.json()
                 }
             })
-            // .then(data => {
-            //     console.log(data)
-            //     navigate('/')
-            // })
         .then(data => {
             console.log(data);
             authContext.login(data.user, data.accessToken)
@@ -76,8 +68,6 @@ export default function Login() {
                 }
                 case ('"Incorrect password"'): {
                     alertContext.showAlertToast('گذرواژه اشتباه است', true, false)
-                    console.log(text.message);
-
                     break
                 }
                 case ('Failed to fetch'): {
@@ -90,15 +80,14 @@ export default function Login() {
     return (
         <>
             <Navbar />
-            <div className={styles.background}>
-                <div className={styles.blurElem}></div>
-                <div className={styles.loginBox}>
-                    <div className={styles.loginBoxBackground}>
-                    </div>
-                    <div className={styles.loginForm}>
+            <div className="relative bg-zinc-800 bg-[url(/src/assets/images/header-img.png)] bg-cover bg-fixed -top-[72px] h-screen py-40 flex justify-center">
+                <div className="absolute inset-0 w-full h-full backdrop-blur-md"></div>
+                <div className="relative w-[450px] h-[450px]">
+                    <div className="absolute bg-white w-full h-full opacity-45 z-10 rounded-3xl"></div>
+                    <div className="relative text-white w-full h-full px-12 py-20 z-20 text-center flex flex-col justify-evenly items-center gap-12">
                         <h1 className="text-4xl">ورود</h1>
                         <div className={`w-full ${isPassShow && 'hidden'}`}>
-                            <h3 className="text-sm mb-8">شماره تلفن همراه یا ایمیل خود راوارد کنید</h3>
+                            <h3 className="text-sm mb-8">شماره تلفن همراه یا ایمیل خود را وارد کنید</h3>
                             <div className="space-y-3">
                                 <Input id={'contact'}
                                     validation={{
@@ -107,7 +96,7 @@ export default function Login() {
                                     placeholder={'شماره تلفن یا ایمیل'}
                                     inputChange={inputChange}
                                 />
-                                <button className={styles.continueBtn}
+                                <button className="bg-zinc-900 w-full p-2 rounded-full disabled:bg-zinc-600"
                                     disabled={!userData.contact.isValid}
                                     onClick={() => setIsPassShow(true)}
                                 >
@@ -115,8 +104,8 @@ export default function Login() {
                                 </button>
                             </div>
                         </div>
-                        <div className={`w-full ${!isPassShow && 'hidden'} flex-col justify-items-center`}>
-                            <h3 className="text-sm mb-8 w-fit">گذرواژه خود راوارد کنید</h3>
+                        <div className={`w-full ${!isPassShow && 'hidden'} flex flex-col items-center`}>
+                            <h3 className="text-sm mb-8 w-fit">گذرواژه خود را وارد کنید</h3>
                             <div className="space-y-3 w-full">
                                 <Input id={'loginPassword'}
                                     validation={{
@@ -127,7 +116,7 @@ export default function Login() {
                                     placeholder={'گذرواژه'}
                                     inputChange={inputChange}
                                 />
-                                <button className={styles.continueBtn}
+                                <button className="bg-zinc-900 w-full p-2 rounded-full disabled:bg-zinc-600"
                                     disabled={!formState.isFormValid}
                                     onClick={loginUser}
                                 >
@@ -141,8 +130,7 @@ export default function Login() {
                                 </button>
                             </div>
                         </div>
-
-                        <Link to='/register' className={styles.linkToRegister}>ثبت نام</Link>
+                        <Link to='/register' className="text-blue-600 text-sm self-start px-2">ثبت نام</Link>
                     </div>
                 </div>
             </div>

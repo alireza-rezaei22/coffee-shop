@@ -8,6 +8,8 @@ import { ProductsContext } from './Contexts/ProductsContext'
 import { AuthContext } from './Contexts/AuthContext'
 import AlertContext from './Contexts/AlertContext'
 import AlertPortal from './components/AlertPortal/AlertPortal'
+import GoUp from './components/GoUp/GoUp'
+import SupportBtn from './components/SupportBtn/SupportBtn'
 
 function App() {
   let router = useRoutes(routes)
@@ -104,6 +106,8 @@ function App() {
           <AlertContext.Provider value={{ alert, showAlertToast }}>
             {router}
             {alert.isAlertShow && <AlertPortal />}
+            <GoUp/>
+            <SupportBtn/>
           </AlertContext.Provider>
         </div>
       </ProductsContext.Provider>

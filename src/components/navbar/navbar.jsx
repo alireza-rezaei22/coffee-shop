@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react"
-import Styles from './navbar.module.css'
 import { Link, NavLink } from "react-router-dom"
 import LoginIcon from '@mui/icons-material/Login';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -20,8 +19,8 @@ export default function Navbar() {
     const [basketProducts, setBasketProducts] = useState([])
     useEffect(() => {
         fetch(`http://localhost:3000/baskets?userId=${authContext.userInfo?.id}`)
-            .then(res=> res.json())
-            .then(data=> setBasketProducts(data))
+            .then(res => res.json())
+            .then(data => setBasketProducts(data))
     }, [authContext.userInfo]);
 
     const logout = () => {
@@ -31,15 +30,12 @@ export default function Navbar() {
 
     return (
         <>
-            <div className={Styles.navbar}>
-                <span
-                    className={Styles.menuIcon}
-                >
-
+            <div className="w-full sticky top-0 z-40 backdrop-blur flex justify-between items-center py-3 px-5 text-zinc-500">
+                <span className="space-x-2 space-x-reverse block md:hidden">
                     <MenuIcon
                         onClick={() => setIsDrawerShow(true)}
                     />
-                    <Link to={'/'} className={Styles.homeIcon}>
+                    <Link to={'/'}>
                         <HomeIcon />
                     </Link>
                 </span>
@@ -48,10 +44,10 @@ export default function Navbar() {
                     open={isDrawerShow}
                     onClose={() => setIsDrawerShow(false)}
                     anchor="right"
-                    className={Styles.drawer}
+                    className="block md:hidden"
                 >
-                    <CloseIcon onClick={() => setIsDrawerShow(false)} />
-                    <List className={Styles.links}>
+                    <CloseIcon onClick={() => setIsDrawerShow(false)} className="self-end size-8 m-2" />
+                    <List className="w-64">
                         <ListItem>
                             <NavLink to='/'>صفحه اصلی</NavLink>
                         </ListItem>
@@ -71,14 +67,12 @@ export default function Navbar() {
                                 </ListItem>
                             </div>
                             :
-                            <NavLink>
-                                <NavLink to={'/login'}>ورود / ثبت نام</NavLink>
-                            </NavLink>
+                            <NavLink to={'/login'}>ورود / ثبت نام</NavLink>
                         }
                     </List>
                 </Drawer>
 
-                <div className={Styles.rightSec}>
+                <div className="hidden md:flex md:justify-evenly md:items-center md:divide-x-2 md:divide-x-reverse">
                     {authContext.isLoggedIn ?
                         <Link to={'/panel'} className="text-3xl pb-2">
                             <PersonOutlineOutlinedIcon />
@@ -88,27 +82,27 @@ export default function Navbar() {
                             <LoginIcon />
                         </Link>
                     }
-                    <div className={Styles.tabs}>
+                    <div className="px-4 flex gap-3">
                         <NavLink to='/'>صفحه اصلی</NavLink>
                         <NavLink to='/products'>محصولات</NavLink>
                         <NavLink to='/articles'>مقالات</NavLink>
                     </div>
                 </div>
-                <div className={Styles.leftSec}>
-                    <span className={Styles.searchBox}>
+                <div className="flex justify-end items-center space-x-4 space-x-reverse w-1/2 md:space-x-10 md:space-x-reverse md:w-auto">
+                    <span>
                         <SearchBox />
                     </span>
                     <Badge
                         badgeContent={basketProducts.length}
                         color="primary"
                         fontSize="medium"
-                        className={Styles.basketIcon}
+                        className="cursor-pointer"
                         onClick={() => setIsBasketShow(true)}
                     >
                         <LocalGroceryStoreOutlinedIcon fontSize="medium" />
                     </Badge>
                 </div>
-                <BasketDrawer isBasketShow={isBasketShow} setIsBasketShow={setIsBasketShow}/>
+                <BasketDrawer isBasketShow={isBasketShow} setIsBasketShow={setIsBasketShow} />
             </div>
         </>
     )

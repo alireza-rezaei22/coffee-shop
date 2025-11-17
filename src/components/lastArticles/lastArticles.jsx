@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom"
-import ArticleTtem from "../articleItem/articleItem"
-import Styles from './lastArticles.module.css'
+import ArticleItem from "../articleItem/articleItem"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeader from '../SectionHeader/SectionHeader'
 
 export default function LastArticles() {
     return (
-        <div className={Styles.articlesBox}>
+        <div className="py-5 px-20 lg:px-20 md:px-5">
             <SectionHeader title='آخرین مقالات'/>
-            <div className={Styles.lastArticlesItems}>
-                <Link to={'/articles'} className={Styles.seeMore}>بیشتر</Link>
+            <div className="flex flex-col gap-5">
+                <Link to={'/articles'} className="self-end mx-5 text-blue-500">بیشتر</Link>
                 <Swiper
-                    className={Styles.slider}
+                    className="w-full"
                     spaceBetween={50}
                     slidesPerView={1}
                     breakpoints={{
@@ -23,24 +22,23 @@ export default function LastArticles() {
                         }
                     }}
                 >
-
                     <SwiperSlide>
-                        <ArticleTtem />
+                        <ArticleItem />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <ArticleTtem />
+                        <ArticleItem />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <ArticleTtem />
+                        <ArticleItem />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <ArticleTtem />
+                        <ArticleItem />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <ArticleTtem />
+                        <ArticleItem />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <ArticleTtem />
+                        <ArticleItem />
                     </SwiperSlide>
                 </Swiper>
             </div>

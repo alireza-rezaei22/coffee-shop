@@ -1,12 +1,10 @@
-import { useContext,useEffect, useReducer } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UseForm } from "../../hooks/UseForm";
 import Input from "../../components/input/input";
 import Navbar from "../../components/navbar/navbar";
-import styles from './register.module.css'
 import AlertContext from "../../Contexts/AlertContext";
 import { AuthContext } from "../../Contexts/AuthContext";
-
 
 export default function Register() {
     const alertContext = useContext(AlertContext)
@@ -36,7 +34,6 @@ export default function Register() {
         }
     },[authContext])
     const submitUser = ()=>{
-
         const userData = formState.inputs
         let pureUserData = {}
         for (const i in userData){
@@ -74,7 +71,7 @@ export default function Register() {
         .catch((text) => {
             console.log(text.message);
             switch (text.message) {
-                case ('email alredy exist'): {
+                case ('email already exist'): {
                     alertContext.showAlertToast('ایمیل یا شماره تلفن قبلا در سیستم ثبت شده', true, false)
                 }
                 case ('Failed to fetch'): {
@@ -86,15 +83,14 @@ export default function Register() {
     return (
         <>
         <Navbar/>
-        <div className={styles.background}>
-            <div className={styles.blurElem}></div>
-            <div className={styles.loginBox}>
-                <div className={styles.loginBoxBackground}>
-                </div>
-                <div className={styles.loginForm}>
+        <div className="relative bg-zinc-800 bg-[url(/src/assets/images/header-img.png)] bg-cover bg-fixed -top-[72px] h-screen py-40 flex justify-center">
+            <div className="absolute inset-0 w-full h-full backdrop-blur-md"></div>
+            <div className="relative w-[450px] h-[450px]">
+                <div className="absolute bg-white w-full h-full opacity-45 z-10 rounded-3xl"></div>
+                <div className="relative text-white w-full h-full px-12 py-20 z-20 flex flex-col justify-evenly items-center gap-5">
                     <h1 className="text-4xl">ثبت نام</h1>
                     <h3 className="text-sm">لطفا اطلاعات خواسته شده را وارد کنید</h3>
-                    <div className={styles.inputs}>
+                    <div className="grid grid-cols-2 gap-2">
                         <Input id={'username'}
                             validation={{
                                 max: 30,
@@ -127,18 +123,18 @@ export default function Register() {
                             inputChange={inputChange}
                         />
                     </div>
-                    <button className={styles.submitBtn}
+                    <button className="bg-zinc-900 w-full p-2 rounded-full disabled:bg-zinc-600"
                         disabled={!formState.isFormValid}
                         onClick={submitUser}
                     >
                         ثبت نام
                     </button>
                     {formState.responseMsg &&
-                        <p className={styles.errorMsg}>
+                        <p className="text-red-500 self-start">
                             {formState.responseMsg}
                         </p>
                     }
-                    <Link to='/login' className={styles.linkToLogin}>ورود</Link>
+                    <Link to='/login' className="text-blue-600 text-sm self-start px-2">ورود</Link>
                 </div>
             </div>
         </div>

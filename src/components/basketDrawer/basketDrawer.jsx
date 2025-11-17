@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Styles from './basketDrawer.module.css'
 import { Drawer, List, ListItem } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Contexts/AuthContext'
@@ -9,7 +8,7 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
     const authContext = useContext(AuthContext)
     const [basket, setBasket] = useState([])
     useEffect(() => {
-        if (isBasketShow) {
+        if (isBasketShow && authContext.isLoggedIn) {
             fetch(`http://localhost:3000/baskets?userId=${authContext.userInfo.id}`, {
                 method: 'GET',
                 headers: {
@@ -58,7 +57,6 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
                         .then(data => {
                             console.log(data);
                             setBasket(data)
-                            // setBasketCount(data.basket.find(product => product.productId == params.productId)?.count || 0);
                         })
                         .catch(text => console.log(text))
                 })
@@ -75,7 +73,6 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
                     fetch(`http://localhost:3000/baskets?userId=${authContext.userInfo?.id}`, {
                         method: 'GET',
                         headers: {
-                            // 'Content-Type': 'application/json',
                             'Authorization': `Bearer ${authContext.token}`
                         }
                     })
@@ -88,7 +85,6 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
                         .then(data => {
                             console.log(data);
                             setBasket(data)
-                            // setBasketCount(data.basket.find(product => product.productId == params.productId)?.count || 0);
                         })
                         .catch(text => console.log(text))
                 })
@@ -106,16 +102,16 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
             open={isBasketShow}
             onClose={() => setIsBasketShow(false)}
         >
-            <List className={Styles.basketBox}>
-                <h2 className={Styles.basketTitle}>سبد خرید</h2>
+            <List className="w-64 h-full p-2 !mx-3 flex flex-col justify-between">
+                <h2 className="w-full text-center p-3 text-xl text-zinc-600 font-bold">سبد خرید</h2>
                 {authContext.isLoggedIn ?
                     <>
                         {basket.length ? <>{
-                            <div className={Styles.basketList}>{basket.map(product => {
-                                return <ListItem key={product.id} className={Styles.basketItem}>
-                                    <img src="/src/assets/images/product.jpg" alt="" />
-                                    <div className={Styles.itemDetail}>
-                                        <span className={Styles.itemInfo}>
+                            <div className="flex-1 flex flex-col gap-2 overflow-scroll">{basket.map(product => {
+                                return <ListItem key={product.id} className="px-2 bg-gray-50 hover:bg-gray-100">
+                                    <img src="/src/assets/images/product.jpg" alt="" className="rounded-md w-20 border border-gray-200" />
+                                    <div className="m-1 w-full flex flex-col items-start gap-2">
+                                        <span className="w-full flex flex-col items-start">
                                             <h4>{product.productTitle}</h4>
                                             {product.off ?
                                                 <>
@@ -128,7 +124,7 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
                                                 <h5 className="self-end">{product.price} تومان</h5>
                                             }
                                         </span>
-                                        <div className={Styles.actions}>
+                                        <div className="self-end space-x-2 space-x-reverse text-white text-sm w-full pr-2">
                                             <ProductCount
                                                 pageId={product.productId}
                                                 basketCount={product.count}
@@ -143,10 +139,10 @@ export default function BasketDrawer({ isBasketShow, setIsBasketShow }) {
                             </div>
                         }
                             <div>
-                                <h3 className={Styles.totalPrice}>
+                                <h3 className="bg-gray-200 mb-3 p-3 rounded-md">
                                     قیمت کل خرید: {totalPrice}
                                 </h3>
-                                <button className={Styles.payment}>پرداخت</button>
+                                <button className="text-white bg-zinc-900 rounded-md w-full p-3 hover:bg-zinc-950">پرداخت</button>
                             </div>
                         </> :
                             <h3

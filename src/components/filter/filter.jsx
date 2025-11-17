@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import styles from './filter.module.css'
 import { Switch, Accordion, AccordionSummary, AccordionDetails, ListItem } from "@mui/material"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useEffect, useReducer } from "react"
@@ -40,12 +39,12 @@ const filterReducer = (state, action) => {
                 ...state,
                 filters: {
                     ...state.filters,
-                    sort: event.target.value
+                    sort: action.value
                 },
                 newFilter: {
                     type: action.type,
                     id: '',
-                    filter: event.target.value
+                    filter: action.value
                 }
             }
         }
@@ -87,17 +86,18 @@ const filterReducer = (state, action) => {
                     }
                 }
             } else {
-                state.filters.brands.splice(brandIndex, 1)
+                const newBrands = [...state.filters.brands];
+                newBrands.splice(brandIndex, 1);
                 return {
                     ...state,
                     filters: {
                         ...state.filters,
-                        brands: state.filters.brands
+                        brands: newBrands
                     },
                     newFilter: {
                         type: action.type,
                         id: '',
-                        filter: state.filters.brands
+                        filter: newBrands
                     }
                 }
             }
@@ -132,54 +132,54 @@ export default function Filter({ changeFilter, isDrawerShow, setIsDrawerShow }) 
                 open={isDrawerShow}
                 anchor="right"
                 onClose={()=> setIsDrawerShow(false)}
-                className={styles.drawer}
+                className="relative pt-4"
             >
-                <List className={styles.filterDrawerBox}>
-                        <h2 className={styles.filterTitles}>فیلتر ها</h2>
+                <List className="relative pt-4">
+                        <h2 className="w-full text-center p-3 text-xl text-zinc-600 font-bold">فیلتر ها</h2>
                         <div className="divide-y-2">
-                            <div className={`${styles.filter}, ${styles.filterSwich}`}>
-                                <h2 className={styles.filterTitle}>ارسال رایگان</h2>
+                            <div className="w-full text-center p-3 text-sm text-zinc-500 font-bold flex justify-between items-center">
+                                <h2 className="text-sm text-zinc-500 font-bold">ارسال رایگان</h2>
                                 <Switch checked={filterReduce.filters.freeDelivery} onChange={() => dispatch({ type: 'FREE_DELIVERY' })} />
                             </div>
-                            <div className={`${styles.filter}, ${styles.filterSwich}`}>
-                                <h2 className={styles.filterTitle}>فقط موجود</h2>
+                            <div className="w-full text-center p-3 text-sm text-zinc-500 font-bold flex justify-between items-center">
+                                <h2 className="text-sm text-zinc-500 font-bold">فقط موجود</h2>
                                 <Switch checked={filterReduce.filters.exist} onChange={() => dispatch({ type: 'EXIST' })} />
                             </div>
-                            <Accordion className={styles.filter}>
+                            <Accordion className="w-full">
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1-content"
                                     id="panel1-header"
                                 >
-                                    <h2 className={styles.filterTitle}>ترتیب</h2>
+                                    <h2 className="text-sm text-zinc-500 font-bold">ترتیب</h2>
                                 </AccordionSummary>
                                 <AccordionDetails
-                                    className={styles.filterListBox}
+                                    className="text-sm text-zinc-400 font-normal space-y-2"
                                 >
-                                    <span className={styles.orderItem}>
+                                    <span className="flex justify-between">
                                         <h3>ارزان ترین</h3>
-                                        <input type="radio" id="cheepest" value="cheepest" checked={filterReduce.filters.sort === 'cheepest'} onChange={() => dispatch({ type: 'SORT' })} />
+                                        <input type="radio" id="cheepest" value="cheepest" checked={filterReduce.filters.sort === 'cheepest'} onChange={() => dispatch({ type: 'SORT', value: 'cheepest' })} />
                                     </span>
-                                    <span className={styles.orderItem}>
+                                    <span className="flex justify-between">
                                         <h3>گران ترین</h3>
-                                        <input type="radio" id="expensivest" value="expensivest" checked={filterReduce.filters.sort === 'expensivest'} onChange={() => dispatch({ type: 'SORT' })} />
+                                        <input type="radio" id="expensivest" value="expensivest" checked={filterReduce.filters.sort === 'expensivest'} onChange={() => dispatch({ type: 'SORT', value: 'expensivest' })} />
                                     </span>
-                                    <span className={styles.orderItem}>
+                                    <span className="flex justify-between">
                                         <h3>پرفروش ترین</h3>
-                                        <input type="radio" id="Bestselling" value="Bestselling" checked={filterReduce.filters.sort === 'Bestselling'} onChange={() => dispatch({ type: 'SORT' })} />
+                                        <input type="radio" id="Bestselling" value="Bestselling" checked={filterReduce.filters.sort === 'Bestselling'} onChange={() => dispatch({ type: 'SORT', value: 'Bestselling' })} />
                                     </span>
                                 </AccordionDetails>
                             </Accordion>
-                            <Accordion className={styles.filter}>
+                            <Accordion className="w-full">
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}>
-                                    <h2 className={styles.filterTitle}>قیمت</h2>
+                                    <h2 className="text-sm text-zinc-500 font-bold">قیمت</h2>
                                 </AccordionSummary>
-                                <AccordionDetails className={styles.filterListBox}>
-                                    <div className={styles.priceItem}>
-                                        <h3 className={styles.priceHint}>from</h3>
+                                <AccordionDetails className="text-sm text-zinc-400 font-normal space-y-2">
+                                    <div className="flex items-center space-y-1 space-x-2 space-x-reverse">
+                                        <h3 className="flex items-center space-y-1 space-x-2 space-x-reverse">from</h3>
                                         <input type="text"
-                                            className={styles.priceInput}
+                                            className="w-full px-2 py-1 bg-zinc-50 border border-zinc-100 outline-none rounded-full"
                                             onChange={(event) => {
                                                 dispatch({
                                                     type: 'PRICE',
@@ -188,27 +188,27 @@ export default function Filter({ changeFilter, isDrawerShow, setIsDrawerShow }) 
                                             }}
                                         />
                                     </div>
-                                    <div className={styles.priceItem}>
-                                        <h3 className={styles.priceHint}>to</h3>
+                                    <div className="flex items-center space-y-1 space-x-2 space-x-reverse">
+                                        <h3 className="flex items-center space-y-1 space-x-2 space-x-reverse">to</h3>
                                         <input type="text" onChange={(event) => {
                                             dispatch({
                                                 type: 'PRICE',
                                                 from: filterReduce.filters.priceLimit.from, to: event.target.value
                                             })
                                         }}
-                                            className={styles.priceInput} />
+                                            className="w-full px-2 py-1 bg-zinc-50 border border-zinc-100 outline-none rounded-full" />
                                     </div>
 
                                 </AccordionDetails>
                             </Accordion>
-                            <Accordion className={styles.filter}>
+                            <Accordion className="w-full">
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                 >
-                                    <h2 className={styles.filterTitle}>برند</h2>
+                                    <h2 className="text-sm text-zinc-500 font-bold">برند</h2>
                                 </AccordionSummary>
                                 <AccordionDetails
-                                    className={styles.filterListBox}
+                                    className="text-sm text-zinc-400 font-normal space-y-2"
                                     onChange={(event) => {
                                         dispatch({
                                             type: 'BRAND',
@@ -216,27 +216,27 @@ export default function Filter({ changeFilter, isDrawerShow, setIsDrawerShow }) 
                                         })
                                     }}
                                 >
-                                    <span className={styles.brandItem}>
+                                    <span className="flex justify-between">
                                         <h3>دولنگی</h3>
                                         <input type="checkbox" value={'دولنگی'} />
                                     </span>
-                                    <span className={styles.brandItem}>
+                                    <span className="flex justify-between">
                                         <h3>مباشی</h3>
                                         <input type="checkbox" value={'مباشی'} />
                                     </span>
-                                    <span className={styles.brandItem}>
+                                    <span className="flex justify-between">
                                         <h3>ولگا</h3>
                                         <input type="checkbox" value={'ولگا'} />
                                     </span>
-                                    <span className={styles.brandItem}>
+                                    <span className="flex justify-between">
                                         <h3>واکاکو</h3>
                                         <input type="checkbox" value={'واکاکو'} />
                                     </span>
-                                    <span className={styles.brandItem}>
+                                    <span className="flex justify-between">
                                         <h3>وان کافی</h3>
                                         <input type="checkbox" value={'وان کافی'} />
                                     </span>
-                                    <span className={styles.brandItem}>
+                                    <span className="flex justify-between">
                                         <h3>وگاتی</h3>
                                         <input type="checkbox" value={'وگاتی'} />
                                     </span>
@@ -246,52 +246,52 @@ export default function Filter({ changeFilter, isDrawerShow, setIsDrawerShow }) 
                 </List>
             </Drawer>
 
-            <div className={styles.filterBox}>
-                <h2 className={styles.filterTitles}>فیلتر ها</h2>
+            <div className="relative w-1/5 pt-4 border-l-2 hidden md:flex md:flex-col md:items-center">
+                <h2 className="w-full text-center p-3 text-xl text-zinc-600 font-bold">فیلتر ها</h2>
                 <div className="divide-y-2">
-                    <div className={`${styles.filter}, ${styles.filterSwich}`}>
-                        <h2 className={styles.filterTitle}>ارسال رایگان</h2>
+                    <div className="w-full text-center p-3 text-sm text-zinc-500 font-bold flex justify-between items-center">
+                        <h2 className="text-sm text-zinc-500 font-bold">ارسال رایگان</h2>
                         <Switch checked={filterReduce.filters.freeDelivery} onChange={() => dispatch({ type: 'FREE_DELIVERY' })} />
                     </div>
-                    <div className={`${styles.filter}, ${styles.filterSwich}`}>
-                        <h2 className={styles.filterTitle}>فقط موجود</h2>
+                    <div className="w-full text-center p-3 text-sm text-zinc-500 font-bold flex justify-between items-center">
+                        <h2 className="text-sm text-zinc-500 font-bold">فقط موجود</h2>
                         <Switch checked={filterReduce.filters.exist} onChange={() => dispatch({ type: 'EXIST' })} />
                     </div>
-                    <Accordion className={styles.filter}>
+                    <Accordion className="w-full">
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1-content"
                             id="panel1-header"
                         >
-                            <h2 className={styles.filterTitle}>ترتیب</h2>
+                            <h2 className="text-sm text-zinc-500 font-bold">ترتیب</h2>
                         </AccordionSummary>
                         <AccordionDetails
-                            className={styles.filterListBox}
+                            className="text-sm text-zinc-400 font-normal space-y-2"
                         >
-                            <span className={styles.orderItem}>
+                            <span className="flex justify-between">
                                 <h3>ارزان ترین</h3>
-                                <input type="radio" id="cheepest" value="cheepest" checked={filterReduce.filters.sort === 'cheepest'} onChange={() => dispatch({ type: 'SORT' })} />
+                                <input type="radio" id="cheepest" value="cheepest" checked={filterReduce.filters.sort === 'cheepest'} onChange={() => dispatch({ type: 'SORT', value: 'cheepest' })} />
                             </span>
-                            <span className={styles.orderItem}>
+                            <span className="flex justify-between">
                                 <h3>گران ترین</h3>
-                                <input type="radio" id="expensivest" value="expensivest" checked={filterReduce.filters.sort === 'expensivest'} onChange={() => dispatch({ type: 'SORT' })} />
+                                <input type="radio" id="expensivest" value="expensivest" checked={filterReduce.filters.sort === 'expensivest'} onChange={() => dispatch({ type: 'SORT', value: 'expensivest' })} />
                             </span>
-                            <span className={styles.orderItem}>
+                            <span className="flex justify-between">
                                 <h3>پرفروش ترین</h3>
-                                <input type="radio" id="Bestselling" value="Bestselling" checked={filterReduce.filters.sort === 'Bestselling'} onChange={() => dispatch({ type: 'SORT' })} />
+                                <input type="radio" id="Bestselling" value="Bestselling" checked={filterReduce.filters.sort === 'Bestselling'} onChange={() => dispatch({ type: 'SORT', value: 'Bestselling' })} />
                             </span>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion className={styles.filter}>
+                    <Accordion className="w-full">
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}>
-                            <h2 className={styles.filterTitle}>قیمت</h2>
+                            <h2 className="text-sm text-zinc-500 font-bold">قیمت</h2>
                         </AccordionSummary>
-                        <AccordionDetails className={styles.filterListBox}>
-                            <div className={styles.priceItem}>
-                                <h3 className={styles.priceHint}>from</h3>
+                        <AccordionDetails className="text-sm text-zinc-400 font-normal space-y-2">
+                            <div className="flex items-center space-y-1 space-x-2 space-x-reverse">
+                                <h3 className="flex items-center space-y-1 space-x-2 space-x-reverse">from</h3>
                                 <input type="text"
-                                    className={styles.priceInput}
+                                    className="w-full px-2 py-1 bg-zinc-50 border border-zinc-100 outline-none rounded-full"
                                     onChange={(event) => {
                                         dispatch({
                                             type: 'PRICE',
@@ -300,27 +300,27 @@ export default function Filter({ changeFilter, isDrawerShow, setIsDrawerShow }) 
                                     }}
                                 />
                             </div>
-                            <div className={styles.priceItem}>
-                                <h3 className={styles.priceHint}>to</h3>
+                            <div className="flex items-center space-y-1 space-x-2 space-x-reverse">
+                                <h3 className="flex items-center space-y-1 space-x-2 space-x-reverse">to</h3>
                                 <input type="text" onChange={(event) => {
                                     dispatch({
                                         type: 'PRICE',
                                         from: filterReduce.filters.priceLimit.from, to: event.target.value
                                     })
                                 }}
-                                    className={styles.priceInput} />
+                                    className="w-full px-2 py-1 bg-zinc-50 border border-zinc-100 outline-none rounded-full" />
                             </div>
 
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion className={styles.filter}>
+                    <Accordion className="w-full">
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                         >
-                            <h2 className={styles.filterTitle}>برند</h2>
+                            <h2 className="text-sm text-zinc-500 font-bold">برند</h2>
                         </AccordionSummary>
                         <AccordionDetails
-                            className={styles.filterListBox}
+                            className="text-sm text-zinc-400 font-normal space-y-2"
                             onChange={(event) => {
                                 dispatch({
                                     type: 'BRAND',
@@ -328,34 +328,34 @@ export default function Filter({ changeFilter, isDrawerShow, setIsDrawerShow }) 
                                 })
                             }}
                         >
-                            <span className={styles.brandItem}>
+                            <span className="flex justify-between">
                                 <h3>دولنگی</h3>
                                 <input type="checkbox" value={'دولنگی'} />
                             </span>
-                            <span className={styles.brandItem}>
+                            <span className="flex justify-between">
                                 <h3>مباشی</h3>
                                 <input type="checkbox" value={'مباشی'} />
                             </span>
-                            <span className={styles.brandItem}>
+                            <span className="flex justify-between">
                                 <h3>ولگا</h3>
                                 <input type="checkbox" value={'ولگا'} />
                             </span>
-                            <span className={styles.brandItem}>
+                            <span className="flex justify-between">
                                 <h3>واکاکو</h3>
                                 <input type="checkbox" value={'واکاکو'} />
                             </span>
-                            <span className={styles.brandItem}>
+                            <span className="flex justify-between">
                                 <h3>وان کافی</h3>
                                 <input type="checkbox" value={'وان کافی'} />
                             </span>
-                            <span className={styles.brandItem}>
+                            <span className="flex justify-between">
                                 <h3>وگاتی</h3>
                                 <input type="checkbox" value={'وگاتی'} />
                             </span>
                         </AccordionDetails>
                     </Accordion>
                 </div>
-                <img className={styles.filterShape} src="/src/assets/images/Path 8312.svg" alt="" />
+                <img className="absolute bottom-5 -right-5 start-0 w-full -z-50" src="/src/assets/images/Path 8312.svg" alt="" />
             </div>
         </>
     )

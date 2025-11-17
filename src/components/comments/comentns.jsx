@@ -1,14 +1,13 @@
 import { useEffect, useState, useContext } from "react"
-import Styles from './Comments.module.css'
 import Comment from '../comment/comment'
 import { AuthContext } from "../../Contexts/AuthContext";
 import AlertContext from "../../Contexts/AlertContext";
 
 export default function Comments({productId, productTitle}) {
-    // const [helpMsg, setHelpMsg] = useState()
     const authContext = useContext(AuthContext)
     const alertContext = useContext(AlertContext)
     const userInfo = authContext?.userInfo
+    console.log(userInfo);
     const [comments, setComments] = useState([])
     useEffect(() => {
         fetch(`http://localhost:3000/comments?productId=${productId}`)
@@ -29,7 +28,7 @@ export default function Comments({productId, productTitle}) {
                     body: JSON.stringify({
                         productId: productId,
                         userId: userInfo.id,
-                        name: userInfo.email.replace('.', ' ').split('@')[0],
+                        name: userInfo.username,
                         productTitle: productTitle,
                         comment: userComment,
                     })
@@ -56,19 +55,8 @@ export default function Comments({productId, productTitle}) {
                             }
                         }
                     })
-                // setComments(prev => {
-                //     return [
-                //         ...prev,
-                //         {
-                //             // id: allComments.length + 1,
-                //             articleId: articleId,
-                //             name: userInfo.email.replace('.', ' ').split('@')[0],
-                //             comment: userComment
-                //         }
-                //     ]
-                // })
-            } else {
-                alertContext.showAlertToast('لطفا مقدرای وارد کنید', true, false)
+
+                alertContext.showAlertToast('لطفا مقداری وارد کنید', true, false)
 
             }
         } else {
@@ -78,26 +66,25 @@ export default function Comments({productId, productTitle}) {
         setUserComment('')
     }
     return (
-        <div className={Styles.commentsBox}>
+        <div className="relative bg-gradient-to-bl from-indigo-600 to-indigo-900 text-zinc-200 flex flex-col items-center rounded-3xl px-5 py-8 mt-5 mb-24 ::">
             <h2 className='text-xl'>دیدگاه کاربران</h2>
-            <div className={Styles.commentsList}>
+            <div className="self-start mt-8 mb-16 divide-y-[1px] w-full">
                 {(comments.length > 0) ? comments.map(comment => {
                     return <Comment key={comment.id} {...comment} />
                 }) :
                     <Comment />
                 }
             </div>
-            <div className={Styles.newCommentBox}>
-                <h2 className=''>ثبت دیدگاه</h2>
+            <div className="bg-blue-100 absolute -bottom-24 w-[50%] flex flex-col justify-center gap-y-2 items-center text-zinc-500 rounded-3xl px-10 py-4">
+                <h2>ثبت دیدگاه</h2>
                 <textarea
-                    className={Styles.inputComment}
+                    className="w-[100%] h-32 px-4 rounded-2xl outline-none resize-none overflow-y-auto"
                     value={userComment}
                     onChange={e=> setUserComment(e.target.value)}
                 >
 
                 </textarea>
-                <button className={Styles.submitCommentBtn} onClick={submitComment}>ارسال</button>
-                {/* {helpMsg && <p className={Styles.errorMsg}>{helpMsg}</p>} */}
+                <button className="absolute -left-8 bg-blue-500 text-white rounded-full px-3 py-1" onClick={submitComment}>ارسال</button>
             </div>
         </div>
     )

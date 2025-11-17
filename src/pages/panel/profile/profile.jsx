@@ -1,9 +1,7 @@
 import React, { useContext } from 'react'
-import Styles from './profile.module.css'
 import Input from '../../../components/input/input'
 import { UseForm } from '../../../hooks/UseForm'
 import AlertContext from '../../../Contexts/AlertContext'
-
 import { AuthContext } from '../../../Contexts/AuthContext'
 
 export default function Profile() {
@@ -16,7 +14,7 @@ export default function Profile() {
             isValid: true
         },
         contact: {
-            value: contact?.split('@')[0],
+            value: contact,
             isValid: true
         },
         password: {
@@ -27,12 +25,12 @@ export default function Profile() {
             value: '',
             isValid: false
         },
-        // isFormValid: false
     })
 
     const editUserInfo = () => {
         let userData = formState.inputs
         let pureUserData = {}
+        console.log(userData);
         for (const i in userData) {
             if (i !== 'confirm') {
                 pureUserData[i] = (i == 'contact' && !userData[i].value.includes('@')) ?
@@ -63,6 +61,7 @@ export default function Profile() {
             .then(data => {
                 console.log(data);
                 alertContext.showAlertToast('اطلاعات با موفقیت ویرایش شد', true, true)
+                password
             })
             .catch((text) => {
                 console.log(text.message);
@@ -76,9 +75,9 @@ export default function Profile() {
 
     return (
         <>
-            <div className={Styles.profileBox}>
-                <div className={Styles.inputs}>
-                    <span>
+            <div className="bg-gray-300 rounded-3xl p-10 w-[500px]">
+                <div className="flex items-center flex-col gap-5 mb-10">
+                    <span className="w-full space-y-1">
                         <label>نام کاربری: </label>
                         <Input id={'username'}
                             validation={{
@@ -90,7 +89,7 @@ export default function Profile() {
                             inputChange={inputChange}
                         />
                     </span>
-                    <span>
+                    <span className="w-full space-y-1">
                         <label>شماره تلفن یا ایمیل: </label>
                         <Input id={'contact'}
                             validation={{
@@ -101,7 +100,7 @@ export default function Profile() {
                             inputChange={inputChange}
                         />
                     </span>
-                    <span>
+                    <span className="w-full space-y-1">
                         <label>گذرواژه جدید: </label>
                         <Input id={'password'}
                             validation={{
@@ -112,7 +111,7 @@ export default function Profile() {
                             inputChange={inputChange}
                         />
                     </span>
-                    <span>
+                    <span className="w-full space-y-1">
                         <label>تکرار گذرواژه جدید: </label>
                         <Input id={'confirm'}
                             validation={{
@@ -123,9 +122,8 @@ export default function Profile() {
                             inputChange={inputChange}
                         />
                     </span>
-
                 </div>
-                <button className={Styles.continueBtn}
+                <button className="bg-zinc-900 text-white w-full p-2 rounded-full disabled:bg-zinc-600"
                     disabled={!formState.isFormValid}
                     onClick={editUserInfo}
                 >

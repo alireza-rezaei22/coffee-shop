@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../../../Contexts/AuthContext'
 import { Link } from 'react-router-dom'
-import Styles from './basket.module.css'
 import ProductCount from '../../../components/productCount/productCount'
 
 export default function Basket() {
@@ -61,7 +60,6 @@ export default function Basket() {
             .then(data => {
               console.log(data);
               setBasket(data)
-              // setBasketCount(data.basket.find(product => product.productId == params.productId)?.count || 0);
             })
             .catch(text => console.log(text))
         })
@@ -78,7 +76,6 @@ export default function Basket() {
           fetch(`http://localhost:3000/baskets?userId=${authContext.userInfo?.id}`, {
             method: 'GET',
             headers: {
-              // 'Content-Type': 'application/json',
               'Authorization': `Bearer ${authContext.token}`
             }
           })
@@ -91,7 +88,6 @@ export default function Basket() {
             .then(data => {
               console.log(data);
               setBasket(data)
-              // setBasketCount(data.basket.find(product => product.productId == params.productId)?.count || 0);
             })
             .catch(text => console.log(text))
         })
@@ -105,14 +101,14 @@ export default function Basket() {
 
   return (
     <>
-      <div className={Styles.basketBox}>
+      <div className="w-full max-w-[900px] h-full p-2 !mx-3 flex flex-col justify-between">
         {basket.length ?
           <>
-            <div className={Styles.basketList}>{basket.map(product => {
-              return <div key={product.id} className={Styles.basketItem}>
-                <span className={Styles.rightSec}>
-                  <img src="/src/assets/images/product.jpg" alt="" />
-                  <span className={Styles.itemInfo}>
+            <div className="flex flex-col gap-2 mb-5">{basket.map(product => {
+              return <div key={product.id} className="p-5 bg-gray-50 text-nowrap flex justify-between hover:bg-gray-100 rounded-md">
+                <span className="flex gap-5">
+                  <img src="/src/assets/images/product.jpg" alt="" className="rounded-md w-20 border border-gray-200" />
+                  <span className="flex flex-col justify-between">
                     <h4>{product.productTitle}</h4>
                     {product.off ?
                       <>
@@ -126,7 +122,7 @@ export default function Basket() {
                     }
                   </span>
                 </span>
-                <div className={Styles.actions}>
+                <div className="space-y-2 text-white text-sm flex flex-col !justify-end w-1/3 pr-2 md:justify-center md:items-center md:flex-row md:space-x-2 md:space-x-reverse">
                   <ProductCount
                     pageId={product.productId}
                     basketCount={product.count}
@@ -139,13 +135,13 @@ export default function Basket() {
             })}
             </div>
             <div>
-              <h3 className={Styles.totalPrice}>
-                قیمت کل خرید: {totalPrice}
+              <h3 className="bg-gray-200 mb-3 p-3 rounded-md">
+                قیمت کل خرید: {totalPrice} تومان
               </h3>
-              <button className={Styles.payment}>پرداخت</button>
+              <button className="text-white bg-zinc-900 rounded-md w-full p-3 hover:bg-zinc-950">پرداخت</button>
             </div>
           </> :
-          <div className={Styles.basketList}>
+          <div className="flex flex-col gap-2">
             <h3
               className="text-center text-md"
               onClick={() => {
